@@ -8,7 +8,7 @@ How to make Config server secure
 2. Replace the 2 policy files in the JRE lib/security directory with the ones that you downloaded.
 3. Create an RSA key pair
 4. Set the properties in bootstarp.yaml
-
+    
 Config Server
 -------------
 1. Create keypairs for config-server
