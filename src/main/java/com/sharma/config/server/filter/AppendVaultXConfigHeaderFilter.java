@@ -24,12 +24,6 @@ public class AppendVaultXConfigHeaderFilter implements Filter {
     @Autowired
     private SessionManager sessionManager;
 
-    @Autowired
-    private VaultOperations vaultOperations;
-
-    @Autowired
-    private Environment environment;
-
     @Override
     public void init(FilterConfig filterConfig) {
 

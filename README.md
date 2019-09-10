@@ -26,4 +26,4 @@ How to run Config-server Application
 =====================================
 1. Copy all files in resources/keystore to any directory
 2. And Change bootstrap.yml with path e.g. key-store:
-3. Run ConfigServerApplication
+3. Run ConfigServerApplication with following parameters -Djavax.net.debug=ssl -Djavax.net.ssl.trustStore=/home/raman/app-config/config-server-trust-store.jks -Djavax.net.ssl.trustStorePassword=config-server -Dspring.config.location=file:/home/raman/app-config/config-server-vault-application.yml

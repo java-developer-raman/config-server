@@ -8,11 +8,11 @@
             </Pattern>
         </layout>
     </appender>
-    <logger name="org.springframework" level="debug" additivity="false">
+    <logger name="org.springframework" level="error" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <root level="debug">
+    <root level="error">
         <appender-ref ref="STDOUT" />
     </root>
 
