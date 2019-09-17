@@ -26,4 +26,15 @@ How to run Config-server Application
 =====================================
 1. Copy all files in resources/keystore to any directory
 2. And Change bootstrap.yml with path e.g. key-store:
-3. Run ConfigServerApplication with following parameters -Djavax.net.debug=ssl -Djavax.net.ssl.trustStore=/home/raman/app-config/config-server-trust-store.jks -Djavax.net.ssl.trustStorePassword=config-server -Dspring.config.location=file:/home/raman/app-config/config-server-vault-application.yml
+3. Run ConfigServerApplication with following parameters -Dspring.config.location=file:/home/raman/programs/servers/app-conf/config-server/config-server-vault-application.yml
+
+How to run executable jar
+=========================
+1. Eithe do export JAVA_OPTS="-Dspring.config.location=file:/home/raman/programs/servers/app-conf/config-server/config-server-vault-application.yml"
+2. Or make a file with jarName.conf e.g. config-server-1.0-SNAPSHOT.conf with above java opts JAVA_OPTS="-Dpropertykey=propvalue" 
+5. And then run ./build/libs/config-server-1.0-SNAPSHOT.jar
+
+Hoe to build and run Docker image
+=================================
+1. sudo docker build --tag=ramansharma/config-server:v0.0.1 .
+2. 

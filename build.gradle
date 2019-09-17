@@ -36,3 +36,11 @@ dependencyManagement {
 test {
     useJUnitPlatform()
 }
+
+
+
+/*bootJar {
+    mainClassName = 'com.sharma.config.server.ConfigServerApplication'
+    launchScript()
+}*/
+
