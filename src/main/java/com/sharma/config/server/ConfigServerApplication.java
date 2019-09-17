@@ -11,9 +11,8 @@ import org.springframework.core.io.UrlResource;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
 @EnableConfigServer
-@SpringBootApplication(scanBasePackages = {"com.sharma.config.server.filter"})
+@SpringBootApplication(scanBasePackages = {"com.sharma.config.server.filter", "com.sharma.config.server.controller"})
 public class ConfigServerApplication {
 
     public static void main(String[] args) throws IOException {
