@@ -37,4 +37,4 @@ How to run executable jar
 Hoe to build and run Docker image
 =================================
 1. sudo docker build --tag=ramansharma/config-server:v0.0.1 .
-2. 
+2. sudo docker run -p 8888:8888 --mount type=bind,src=/home/raman/programs/servers/app-conf/config-server,destination=/home/app-conf,readonly --rm ramansharma/config-server:v0.0.1

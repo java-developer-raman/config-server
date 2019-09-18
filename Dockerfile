@@ -1,6 +1,5 @@
-FROM alpine:3.10.2
-RUN apk update && apk upgrade && apk add bash
-COPY build/libs/config-server-1.0-SNAPSHOT.jar config-server.jar
-CMD ["/config-server.jar"]
-#COPY build/libs/config-server-*.jar config-server.jar
-#ENTRYPOINT ["java", "-Dspring.config.location=file:/home/app-conf/config-server-vault-application.yml", "-jar", "config-server.jar"]
+# Taking only JRE, As alpine image for JDK is heavier,
+FROM openjdk:8-jre-alpine
+EXPOSE 8888
+COPY build/libs/config-server-*.jar config-server.jar
+CMD ["java", "-Dspring.config.location=file:/home/app-conf/config-server-vault-application.yml", "-jar", "/config-server.jar"]
