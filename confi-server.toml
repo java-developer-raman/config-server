@@ -1,0 +1,69 @@
+Name = "config-server"
+
+[Filesystem]
+# read only paths for the container
+ReadOnlyPaths = [
+	"/bin/**",
+	"/dev/**",
+	"/etc/**",
+	"/home/config-server/**",
+	"/lib/**",
+	"/media/**",
+	"/mnt/**",
+	"/opt/**",
+	"/proc/**",
+	"/root/**",
+	"/run/**",
+	"/sbin/**",
+	"/srv/**",
+	"/sys/**",
+	"/usr/**",
+	"/var/**",
+]
+
+# paths where you want to log on write
+LogOnWritePaths = [
+	"/**"
+]
+
+# paths where you can write
+WritablePaths = [
+	/tmp/**
+]
+
+# allowed executable files for the container
+AllowExec = [
+	"/usr/lib/jvm/java-1.8-openjdk/jre/bin/java"
+]
+
+# denied executable files
+DenyExec = [
+	"/bin/dash",
+	"/bin/sh",
+	"/bin/top",
+	"/bin/cat",
+	"/bin/mv",
+	"/bin/more",
+	"/bin/cp",
+]
+
+# allowed capabilities
+[Capabilities]
+Allow = [
+	"chown",
+	"dac_override",
+	"setuid",
+	"setgid",
+	"net_bind_service"
+]
+
+[Network]
+# if you don't need to ping in a container, you can probably
+# set Raw to false and deny network raw
+Raw = false
+Packet = false
+Protocols = [
+	"tcp",
+	"udp",
+	"icmp"
+]

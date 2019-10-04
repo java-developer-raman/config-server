@@ -32,3 +32,9 @@ HEALTHCHECK --interval=1m --timeout=3s CMD curl -f https://localhost:8888/ || ex
 
 # Run container
 # sudo docker run -p 8888:8888 --mount type=bind,src=/home/raman/programs/servers/app-conf/config-server,destination=/home/config-server/app-conf,readonly --rm ramansharma/config-server:v0.0.1
+
+# Load apparmor profile
+# sudo apparmor_parser -r -W config-server-apparmor
+
+# Run container with apparmor profile
+# sudo docker run -p 8888:8888 --security-opt "apparmor=config-server-apparmor" --mount type=bind,src=/home/raman/programs/servers/app-conf/config-server,destination=/home/config-server/app-conf,readonly --rm ramansharma/config-server:v0.0.1
