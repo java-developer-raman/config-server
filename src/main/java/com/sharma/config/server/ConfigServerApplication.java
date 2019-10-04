@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 @EnableConfigServer
+// Annotation is a combination of component scan, enable auto-configuration and @Configuration
 @SpringBootApplication
 public class ConfigServerApplication {
 
