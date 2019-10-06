@@ -36,15 +36,14 @@ AllowExec = [
 	"/usr/lib/jvm/java-1.8-openjdk/jre/bin/java"
 ]
 
-# denied executable files
+# denied executable files,It will disabe most of the commands e.g. cat, chmod, sh, curl and so on. The reason is
+# I want to secure config-server as much I can, As it is an application which will be used by all other applications to
+# interact and get secrets.
 DenyExec = [
-	"/bin/dash",
-	"/bin/sh",
-	"/bin/top",
-	"/bin/cat",
-	"/bin/mv",
-	"/bin/more",
-	"/bin/cp",
+	"/bin/busybox",
+	"/usr/bin/**",
+	"/usr/sbin/**",
+	"/sbin/**",
 ]
 
 # allowed capabilities

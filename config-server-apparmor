@@ -39,14 +39,10 @@ profile config-server-apparmor flags=(attach_disconnected,mediate_deleted) {
 
   /usr/lib/jvm/java-1.8-openjdk/jre/bin/java ix,
 
-  deny /bin/dash mrwklx,
-  deny /bin/sh mrwklx,
-  deny /bin/top mrwklx,
-  deny /bin/cat mrwklx,
-  deny /bin/mv mrwklx,
-  deny /bin/more mrwklx,
-  deny /bin/cp mrwklx,
-
+  deny /bin/busybox mrwklx,
+  deny /usr/bin/** mrwklx,
+  deny /usr/sbin/** mrwklx,
+  deny /sbin/** mrwklx,
 
   capability chown,
   capability dac_override,

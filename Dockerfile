@@ -2,6 +2,7 @@
 ARG JDK_VERSION=8-jre-alpine
 # Taking only JRE, As alpine image for JDK is heavier,
 FROM openjdk:${JDK_VERSION}
+
 # User docker inspect <container id> to view labels
 LABEL "author"="Raman Sharma"
 LABEL "App Name"="config-server"
@@ -25,7 +26,8 @@ COPY build/libs/config-server-${CONFIG_SERVER_VERSION:-1.0-SNAPSHOT}.jar /home/c
 
 CMD ["java", "-Dspring.config.location=file:/home/config-server/app-conf/config-server-vault-application.yml", "-Dlogging.config=/home/config-server/app-conf/logback.xml", "-jar", "/home/config-server/config-server.jar"]
 
-HEALTHCHECK --interval=1m --timeout=3s CMD curl -f https://localhost:8888/ || exit 1
+# Disabling health check, because we will use spring-boot actualtors to do health check
+# HEALTHCHECK --interval=1m --timeout=3s CMD curl -f https://localhost:8888/ || exit 1
 
 # Create image
 # sudo docker build --tag=ramansharma/config-server:v0.0.1 --build-arg CONFIG_SERVER_VERSION=1.0-SNAPSHOT .
