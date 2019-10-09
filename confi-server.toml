@@ -6,7 +6,7 @@ ReadOnlyPaths = [
 	"/bin/**",
 	"/dev/**",
 	"/etc/**",
-	"/home/config-server/**",
+	"/home/config-server/app-conf",
 	"/lib/**",
 	"/media/**",
 	"/mnt/**",
@@ -28,7 +28,8 @@ LogOnWritePaths = [
 
 # paths where you can write
 WritablePaths = [
-	/tmp/**
+	/tmp/**,
+	/home/config-server/app-logs
 ]
 
 # allowed executable files for the container

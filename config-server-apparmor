@@ -19,7 +19,7 @@ profile config-server-apparmor flags=(attach_disconnected,mediate_deleted) {
   deny /bin/** wl,
   deny /dev/** wl,
   deny /etc/** wl,
-  deny /home/config-server/** wl,
+  deny /home/config-server/app-conf wl,
   deny /lib/** wl,
   deny /media/** wl,
   deny /mnt/** wl,
@@ -36,6 +36,8 @@ profile config-server-apparmor flags=(attach_disconnected,mediate_deleted) {
   audit /** w,
 
   /tmp/** rw,
+
+  /home/config-server/app-logs/** rw,
 
   /usr/lib/jvm/java-1.8-openjdk/jre/bin/java ix,
 
