@@ -19,7 +19,7 @@ import java.io.IOException;
 
 @Component
 @Order(2)
-public class AppendVaultXConfigHeaderFilter implements Filter {
+public class VaultXConfigHeaderFilter implements Filter {
 
     @Autowired
     private SessionManager sessionManager;
