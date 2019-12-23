@@ -7,7 +7,7 @@ FROM openjdk:${JDK_VERSION}
 LABEL "author"="Raman Sharma"
 LABEL "App Name"="config-server"
 
-RUN adduser -D config-server
+RUN adduser --disabled-password config-server
 
 USER config-server
 
@@ -18,11 +18,11 @@ ARG CONFIG_SERVER_VERSION
 
 # Creating environment variable so that we can inspect, what is the version of config server running in container
 # Making it same as build argument, If at build time variable is not set it's default value will be taken.
-ENV CONFIG_SERVER_VERSION=${CONFIG_SERVER_VERSION:-1.0-SNAPSHOT}
+ENV CONFIG_SERVER_VERSION=${CONFIG_SERVER_VERSION:-1.0.0-SNAPSHOT}
 # Making prompt bit nicer
 ENV PS1="\h:\w# " PS2=">> "
 
-COPY build/libs/config-server-${CONFIG_SERVER_VERSION:-1.0-SNAPSHOT}.jar /home/config-server/config-server.jar
+COPY build/libs/config-server-${CONFIG_SERVER_VERSION:-1.0.0-SNAPSHOT}.jar /home/config-server/config-server.jar
 
 CMD ["java", "-Dspring.config.location=file:/home/config-server/app-conf/config-server-vault-application.yml", "-Dlogging.config=/home/config-server/app-conf/logback.xml", "-jar", "/home/config-server/config-server.jar"]
 
@@ -30,13 +30,19 @@ CMD ["java", "-Dspring.config.location=file:/home/config-server/app-conf/config-
 # HEALTHCHECK --interval=1m --timeout=3s CMD curl -f https://localhost:8888/ || exit 1
 
 # Create image
-# sudo docker build --tag=ramansharma/config-server:v0.0.1 --build-arg CONFIG_SERVER_VERSION=1.0-SNAPSHOT .
+# sudo docker build --tag=ramansharma/config-server:v1.0.0 --build-arg CONFIG_SERVER_VERSION=1.0.0-SNAPSHOT .
+
+# Push image
+# sudo docker push ramansharma/config-server:v1.0.0
 
 # Run container
-# sudo docker run -p 8888:8888 --mount type=bind,src=/home/raman/programs/servers/app-conf/config-server,destination=/home/config-server/app-conf,readonly --rm ramansharma/config-server:v0.0.1
+# sudo docker run -p 8888:8888 --mount type=bind,src=/home/raman/programs/servers/app-conf/config-server,destination=/home/config-server/app-conf,readonly --rm ramansharma/config-server:v1.0.0
 
 # Load apparmor profile
 # sudo apparmor_parser -r -W config-server-apparmor
 
 # Run container with apparmor profile
-# sudo docker run -p 8888:8888 --security-opt "apparmor=config-server-apparmor" --mount type=bind,src=/home/raman/programs/servers/app-conf/config-server,destination=/home/config-server/app-conf,readonly --rm ramansharma/config-server:v0.0.1
+# sudo docker run -p 8888:8888 --security-opt "apparmor=config-server-apparmor" --mount type=bind,src=/home/raman/programs/servers/app-conf/config-server,destination=/home/config-server/app-conf,readonly --rm ramansharma/config-server:v1.0.0
+
+# Check config server
+# https://localhost:8888/einwohner-1.0-SNAPSHOT/dev
