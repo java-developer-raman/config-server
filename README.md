@@ -34,9 +34,14 @@ How to run executable jar
 2. Or make a file with jarName.conf e.g. config-server-1.0-SNAPSHOT.conf with above java opts JAVA_OPTS="-Dpropertykey=propvalue" 
 5. And then run ./build/libs/config-server-1.0-SNAPSHOT.jar
 
-Hoe to build and run Docker image
+How to build and run Docker image
 =================================
 1. sudo docker build --tag=ramansharma/config-server:v1.0.0 .
 2. sudo apparmor_parser -r -W config-server-apparmor
-3. sudo docker run -p 8888:8888 --security-opt "apparmor=config-server-apparmor" --name config-server --mount type=bind,src=/home/raman/programs/servers/app-conf/config-server,destination=/home/config-server/app-conf,readonly --mount type=bind,src=/home/raman/programs/servers/app-logs/config-server,destination=/home/config-server/app-logs --rm ramansharma/config-server:v1.0.0
+3. sudo docker run -p 8888:8888 --security-opt "apparmor=config-server-apparmor" --name config-server --mount type=bind,src=/home/raman/programs/servers/app-conf/config-server/secrets,destination=/home/config-server/secrets,readonly --mount type=bind,src=/home/raman/programs/servers/host.properties,destination=/home/config-server/host/host.properties,readonly --mount type=bind,src=/home/raman/programs/servers/app-logs/config-server,destination=/home/config-server/app-logs --rm ramansharma/config-server:v1.0.0
 4. https://localhost:8888/einwohner-1.0-SNAPSHOT/dev, https://localhost:8888/actuator/health
+
+Push Image to repo
+==================
+1. sudo docker login
+2. sudo docker push ramansharma/config-server:v1.0.0

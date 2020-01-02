@@ -1,0 +1,1 @@
+curl -k https://localhost:8888/actuator/health | grep '"status":"UP"' > /dev/null && exit 0 || exit 1

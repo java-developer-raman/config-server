@@ -7,6 +7,9 @@ FROM openjdk:${JDK_VERSION}
 LABEL "author"="Raman Sharma"
 LABEL "App Name"="config-server"
 
+
+RUN apk --no-cache add curl
+
 RUN adduser --disabled-password config-server
 
 USER config-server
@@ -22,9 +25,21 @@ ENV CONFIG_SERVER_VERSION=${CONFIG_SERVER_VERSION:-1.0.0-SNAPSHOT}
 # Making prompt bit nicer
 ENV PS1="\h:\w# " PS2=">> "
 
-COPY build/libs/config-server-${CONFIG_SERVER_VERSION:-1.0.0-SNAPSHOT}.jar /home/config-server/config-server.jar
+WORKDIR /home/config-server
 
-CMD ["java", "-Dspring.config.location=file:/home/config-server/app-conf/config-server-vault-application.yml", "-Dlogging.config=/home/config-server/app-conf/logback.xml", "-jar", "/home/config-server/config-server.jar"]
+RUN mkdir -p ./app-conf/test \
+    && mkdir -p ./app-conf/dev
+
+COPY docker/*.sh ./
+COPY docker/config-server-vault-application.yml.tpl ./app-conf/
+
+
+COPY docker/test/* ./app-conf/test/
+COPY docker/dev/* ./app-conf/dev/
+
+COPY build/libs/config-server-${CONFIG_SERVER_VERSION:-1.0.0-SNAPSHOT}.jar ./config-server.jar
+CMD ["./main-process.sh"]
+#CMD ["java", "-Dspring.config.location=file:/home/config-server/app-conf/config-server-vault-application.yml", "-Dlogging.config=/home/config-server/app-conf/logback.xml", "-jar", "/home/config-server/config-server.jar"]
 
 # Disabling health check, because we will use spring-boot actualtors to do health check
 # HEALTHCHECK --interval=1m --timeout=3s CMD curl -f https://localhost:8888/ || exit 1
