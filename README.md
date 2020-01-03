@@ -45,3 +45,40 @@ Push Image to repo
 ==================
 1. sudo docker login
 2. sudo docker push ramansharma/config-server:v1.0.0
+
+
+Working of Config Server
+========================
+
+Config server is a spring boot application, which is responsible for providing properties to other application. So all other applications will store thier
+environment (dev/test/prod) specific properties in Hashi corp vault. And during the startup of application, these applications will load their configuration
+properties from config-server. Config server will contact Hashhi-corp vault and send back the related configuration over secured https channel in encrypted form.
+
+So here are the basic features
+1. Return application specific properties over https vai REST API.
+2. Encrypt or decrypt the string over REST API using Hashicorp's encryption and decryption methods.
+
+Config server is a docker containerized application, which just need the environment e.g. dev/test/prod. When you start the container you need to mount
+two directories and one file e.g.
+
+- host.properties (which contains a key value pair e.g. env=dev, based upon which container knows what kind of environment is it.)
+- logs directory (where config server will store logs)
+- secrets directory (where secret or passwords are stored. It is recommended to mount it using tmpfs rather than using physical directory on host machine)
+
+Step by step startup procedure
+==============================
+1. Check the environment
+2. Build up the application properties with values from secrets
+3. Start the java application
+4. Remove all the application properties and secrets, after application is ready so that nobody can see the prperties even if somebody hack the container.
+
+Steps taken to make it secure
+=============================
+1. All the communication is done via Two way SSL. Any Host want to access config-server should be in it's trust store.
+2. Secret information is encrypted in rest-api response with crypto keys from Hashi corp vault
+3. All the sensitive information gets removed automatically from container after it is ready.
+4. Intercation between Hashi corp vault and java application is done through ssl keys via vault-cert-authentication method.
+5. To access any Rest-API basic authentication is required.
+6. Container's security is tightened through App Armor, to restrict access to any unwanted directories and so on.
+7. secrets to application container are passed through tmpfs. 
+
