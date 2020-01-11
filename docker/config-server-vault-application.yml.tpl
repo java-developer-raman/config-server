@@ -43,7 +43,7 @@ spring:
   cloud:
     vault:
       port: 8300
-      host: 192.168.2.108
+      host: 192.168.2.109
       scheme: https
       authentication: CERT
       backend: secret
@@ -60,7 +60,7 @@ spring:
       server:
         vault:
           port: 8300
-          host: 192.168.2.108
+          host: 192.168.2.109
           scheme: https
           authentication: CERT
           backend: secret
